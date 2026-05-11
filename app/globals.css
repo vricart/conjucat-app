@@ -1,26 +1,242 @@
 @import "tailwindcss";
 
+/* ============================================================
+   DESIGN TOKENS
+   All colours, fonts, and spacing live here.
+   Change a value once — it updates everywhere.
+   ============================================================ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Brand colours */
+  --red:         #DA121A;
+  --red-deep:    #A60E14;
+  --red-soft:    #FCE6E7;
+  --yellow:      #FCDD09;
+  --yellow-soft: #FFF6C7;
+
+  /* Neutrals */
+  --ink:         #1A1613;
+  --ink-2:       #4A433D;
+  --ink-3:       #8A8079;
+  --paper:       #FBF8F2;
+  --paper-2:     #F4EFE5;
+  --line:        #E7DFD0;
+  --white:       #FFFFFF;
+
+  --font-display: var(--font-outfit);    /* headings, wordmark  */
+  --font-body:    var(--font-inter);     /* body copy, UI       */
+  --font-code:    var(--font-jetbrains); /* tags, labels, mono  */
+
+  /* Spacing scale (optional, add as needed) */
+  --nav-h: 68px; /* header height — used to offset sticky content */
 }
 
+/* Tailwind colour tokens (enables bg-red, text-ink-2, etc.) */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-red:         var(--red);
+  --color-red-deep:    var(--red-deep);
+  --color-red-soft:    var(--red-soft);
+  --color-yellow:      var(--yellow);
+  --color-yellow-soft: var(--yellow-soft);
+  --color-ink:         var(--ink);
+  --color-ink-2:       var(--ink-2);
+  --color-ink-3:       var(--ink-3);
+  --color-paper:       var(--paper);
+  --color-paper-2:     var(--paper-2);
+  --color-line:        var(--line);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html, body { margin: 0; padding: 0; }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: 0; background: none; color: inherit; }
+
+
+/* ============================================================
+   NAV HEADER
+   ============================================================ */
+
+  .nav-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 40px;
+    border-bottom: 1px solid var(--line);
+    background: var(--paper);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  /* Brand -------------------------------------------------- */
+  .nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .nav-brand-mark {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: var(--red);
+    position: relative;
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+  }
+
+  .nav-brand-mark-strip {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 8px;
+    background: var(--yellow);
+  }
+
+  .nav-brand-mark-letter {
+    position: relative;
+    z-index: 1;
+    color: var(--white);
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 18px;
+    line-height: 1;
+  }
+
+  .nav-brand-name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 20px;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+
+  .nav-brand-name em {
+    font-style: normal;
+    color: var(--red);
+  }
+
+  /* Nav links ---------------------------------------------- */
+  .nav-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink-2);
+  }
+
+  .nav-link { transition: color 0.15s ease; }
+  .nav-link:hover { color: var(--red); }
+
+  .nav-link-active {
+    color: var(--ink);
+    position: relative;
+  }
+
+  .nav-link-active::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0;
+    bottom: -22px;
+    height: 2px;
+    background: var(--red);
+  }
+
+  /* Right controls ----------------------------------------- */
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  /* Language toggle pill */
+  .lang-pill {
+    display: inline-flex;
+    align-items: center;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 4px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .lang-pill-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    color: var(--ink-2);
+    transition: all 0.15s ease;
+  }
+
+  .lang-pill-btn.active {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .lang-pill-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: 0.5;
+  }
+
+  .lang-pill-btn.active .lang-pill-dot {
+    background: var(--yellow);
+    opacity: 1;
+  }
+
+  /* Sign in button */
+  .nav-signin {
+    font-size: 14px;
+    font-weight: 600;
+    padding: 9px 18px;
+    border-radius: 999px;
+    background: var(--ink);
+    color: var(--paper);
+    transition: background 0.15s ease;
+  }
+
+  .nav-signin:hover { background: var(--red); }
+
+
+/* ============================================================
+   HERO
+   (styles will be added here in the next step)
+   ============================================================ */
+
+
+/* ============================================================
+   VERB CARDS
+   (styles will be added here in the next step)
+   ============================================================ */
+
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 768px) {
+  .nav-header { padding: 14px 18px; }
+  .nav-links  { display: none; }
 }
