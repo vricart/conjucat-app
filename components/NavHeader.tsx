@@ -1,18 +1,15 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
+import { useLanguage } from "@/context/LanguageContext";
 
-const NAV_LINKS = [
-  { label: "Conjugate", href: "/" },
-];
+const NAV_LINKS = [{ label: "Conjugate", href: "/" }];
 
 export default function NavHeader() {
-  const [lang, setLang] = useState<"ca" | "es">("ca");
+  const { lang, setLang } = useLanguage();
 
   return (
     <header className="nav-header">
-
       {/* Brand */}
       <div className="nav-brand">
         <div className="nav-brand-mark">
@@ -20,18 +17,14 @@ export default function NavHeader() {
           <span className="nav-brand-mark-letter">C</span>
         </div>
         <span className="nav-brand-name">
-          conju<em>cat</em>
+          catal<em>ant</em>
         </span>
       </div>
 
       {/* Nav links */}
       <nav className="nav-links">
         {NAV_LINKS.map(({ label, href }) => (
-          <Link
-            key={label}
-            href={href}
-            className="nav-link nav-link-active"
-          >
+          <Link key={label} href={href} className="nav-link nav-link-active">
             {label}
           </Link>
         ))}
@@ -39,7 +32,6 @@ export default function NavHeader() {
 
       {/* Right controls */}
       <div className="nav-right">
-
         {/* Language toggle */}
         <div className="lang-pill" role="tablist" aria-label="Language">
           {(["ca", "es"] as const).map((l) => (
@@ -57,8 +49,9 @@ export default function NavHeader() {
         </div>
 
         {/* Sign in */}
-        <a href="#" className="nav-signin">Sign in</a>
-
+        <a href="#" className="nav-signin">
+          Sign in
+        </a>
       </div>
     </header>
   );

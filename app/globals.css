@@ -3,7 +3,7 @@
 /* ============================================================
    DESIGN TOKENS
    All colours, fonts, and spacing live here.
-   Change a value once — it updates everywhere.
+   Change a value once -- it updates everywhere.
    ============================================================ */
 :root {
   /* Brand colours */
@@ -22,12 +22,14 @@
   --line:        #E7DFD0;
   --white:       #FFFFFF;
 
+  /* Fonts -- variables injected by next/font on <html> */
   --font-display: var(--font-outfit);    /* headings, wordmark  */
   --font-body:    var(--font-inter);     /* body copy, UI       */
   --font-code:    var(--font-jetbrains); /* tags, labels, mono  */
+  --font-serif:   var(--font-fraunces);  /* ampersand accent    */
 
-  /* Spacing scale (optional, add as needed) */
-  --nav-h: 68px; /* header height — used to offset sticky content */
+  /* Spacing */
+  --nav-h: 68px;
 }
 
 /* Tailwind colour tokens (enables bg-red, text-ink-2, etc.) */
@@ -71,165 +73,416 @@ button { font-family: inherit; cursor: pointer; border: 0; background: none; col
    NAV HEADER
    ============================================================ */
 
-  .nav-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 18px 40px;
-    border-bottom: 1px solid var(--line);
-    background: var(--paper);
-    position: sticky;
-    top: 0;
-    z-index: 10;
-  }
+.nav-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 40px;
+  border-bottom: 1px solid var(--line);
+  background: var(--paper);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
 
-  /* Brand -------------------------------------------------- */
-  .nav-brand {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
+/* Brand */
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 
-  .nav-brand-mark {
-    width: 32px;
-    height: 32px;
-    border-radius: 8px;
-    background: var(--red);
-    position: relative;
-    overflow: hidden;
-    display: grid;
-    place-items: center;
-    flex-shrink: 0;
-  }
+.nav-brand-mark {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: var(--red);
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
 
-  .nav-brand-mark-strip {
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 8px;
-    background: var(--yellow);
-  }
+.nav-brand-mark-strip {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 8px;
+  background: var(--yellow);
+}
 
-  .nav-brand-mark-letter {
-    position: relative;
-    z-index: 1;
-    color: var(--white);
-    font-family: var(--font-display);
-    font-weight: 800;
-    font-size: 18px;
-    line-height: 1;
-  }
+.nav-brand-mark-letter {
+  position: relative;
+  z-index: 1;
+  color: var(--white);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 18px;
+  line-height: 1;
+}
 
-  .nav-brand-name {
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 20px;
-    letter-spacing: -0.02em;
-    color: var(--ink);
-  }
+.nav-brand-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
 
-  .nav-brand-name em {
-    font-style: normal;
-    color: var(--red);
-  }
+.nav-brand-name em {
+  font-style: normal;
+  color: var(--red);
+}
 
-  /* Nav links ---------------------------------------------- */
-  .nav-links {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 28px;
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--ink-2);
-  }
+/* Nav links */
+.nav-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink-2);
+}
 
-  .nav-link { transition: color 0.15s ease; }
-  .nav-link:hover { color: var(--red); }
+.nav-link { transition: color 0.15s ease; }
+.nav-link:hover { color: var(--red); }
 
-  .nav-link-active {
-    color: var(--ink);
-    position: relative;
-  }
+.nav-link-active {
+  color: var(--ink);
+  position: relative;
+}
 
-  .nav-link-active::after {
-    content: "";
-    position: absolute;
-    left: 0; right: 0;
-    bottom: -22px;
-    height: 2px;
-    background: var(--red);
-  }
+.nav-link-active::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0;
+  bottom: -22px;
+  height: 2px;
+  background: var(--red);
+}
 
-  /* Right controls ----------------------------------------- */
-  .nav-right {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-  }
+/* Right controls */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
 
-  /* Language toggle pill */
-  .lang-pill {
-    display: inline-flex;
-    align-items: center;
-    background: var(--white);
-    border: 1px solid var(--line);
-    border-radius: 999px;
-    padding: 4px;
-    font-size: 13px;
-    font-weight: 600;
-  }
+.lang-pill {
+  display: inline-flex;
+  align-items: center;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 4px;
+  font-size: 13px;
+  font-weight: 600;
+}
 
-  .lang-pill-btn {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 6px 14px;
-    border-radius: 999px;
-    color: var(--ink-2);
-    transition: all 0.15s ease;
-  }
+.lang-pill-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  color: var(--ink-2);
+  transition: all 0.15s ease;
+}
 
-  .lang-pill-btn.active {
-    background: var(--ink);
-    color: var(--paper);
-  }
+.lang-pill-btn.active {
+  background: var(--ink);
+  color: var(--paper);
+}
 
-  .lang-pill-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: currentColor;
-    opacity: 0.5;
-  }
+.lang-pill-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.5;
+}
 
-  .lang-pill-btn.active .lang-pill-dot {
-    background: var(--yellow);
-    opacity: 1;
-  }
+.lang-pill-btn.active .lang-pill-dot {
+  background: var(--yellow);
+  opacity: 1;
+}
 
-  /* Sign in button */
-  .nav-signin {
-    font-size: 14px;
-    font-weight: 600;
-    padding: 9px 18px;
-    border-radius: 999px;
-    background: var(--ink);
-    color: var(--paper);
-    transition: background 0.15s ease;
-  }
+.nav-signin {
+  font-size: 14px;
+  font-weight: 600;
+  padding: 9px 18px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--paper);
+  transition: background 0.15s ease;
+}
 
-  .nav-signin:hover { background: var(--red); }
+.nav-signin:hover { background: var(--red); }
 
 
 /* ============================================================
    HERO
-   (styles will be added here in the next step)
    ============================================================ */
+
+.hero {
+  position: relative;
+  width: 100%;
+  min-height: calc(100vh - var(--nav-h));
+  padding: 88px 40px 64px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+/* Decorative blurred colour blobs */
+.hero-band {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  filter: blur(60px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hero-band-yellow {
+  background: var(--yellow);
+  top: -40px;
+  left: -60px;
+  opacity: 0.55;
+}
+
+.hero-band-red {
+  background: var(--red);
+  bottom: -80px;
+  right: -80px;
+  opacity: 0.35;
+}
+
+.hero-inner {
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+/* Heading */
+.hero-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(32px, 8vw, 60px);
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+  margin: 0;
+  margin-bottom: 24px;
+  color: var(--ink);
+}
+
+/* "any verb" -- red text with skewed yellow highlight behind */
+.hero-title-accent {
+  position: relative;
+  display: inline-block;
+  color: var(--red);
+}
+
+.hero-title-accent::before {
+  content: "";
+  position: absolute;
+  left: -4px; right: -4px;
+  bottom: 6px;
+  height: 22%;
+  background: var(--yellow);
+  z-index: -1;
+  transform: skew(-3deg);
+}
+
+/* "&" -- italic serif in muted grey */
+.hero-title-amp {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--ink-3);
+}
+
+/* Subtitle */
+.hero-sub {
+  max-width: 620px;
+  margin: 0 auto;
+  margin-bottom: 44px;
+  font-size: 18px;
+  line-height: 1.55;
+  color: var(--ink-2);
+}
+
+
+/* ============================================================
+   SEARCH BAR
+   ============================================================ */
+
+.search-wrap {
+  max-width: 720px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.search-box {
+  display: flex;
+  align-items: stretch;
+  background: var(--white);
+  border: 2px solid var(--ink);
+  border-radius: 18px;
+  box-shadow: 6px 6px 0 var(--yellow);
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+  overflow: hidden;
+}
+
+.search-box:focus-within {
+  box-shadow: 8px 8px 0 var(--red);
+  transform: translate(-1px, -1px);
+}
+
+.search-lang-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 16px 0 20px;
+  border-right: 1px solid var(--line);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink-2);
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: color 0.15s ease;
+}
+
+.search-lang-btn:hover { color: var(--ink); }
+
+.search-flag {
+  width: 20px;
+  height: 14px;
+  border-radius: 2px;
+  display: inline-block;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  flex-shrink: 0;
+}
+
+.search-flag-ca {
+  background: repeating-linear-gradient(
+    to bottom,
+    var(--yellow) 0px 2px,
+    var(--red) 2px 4px
+  );
+}
+
+.search-flag-es {
+  background: linear-gradient(
+    to bottom,
+    var(--red) 0% 25%,
+    var(--yellow) 25% 75%,
+    var(--red) 75% 100%
+  );
+}
+
+.search-chev {
+  width: 0; height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 5px solid var(--ink-3);
+  margin-left: 2px;
+}
+
+.search-input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  padding: 22px 16px;
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.search-input::placeholder {
+  color: var(--ink-3);
+  font-weight: 400;
+}
+
+.search-go {
+  margin: 8px;
+  padding: 0 26px;
+  background: var(--red);
+  color: var(--white);
+  font-weight: 700;
+  font-size: 15px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.15s ease;
+  flex-shrink: 0;
+}
+
+.search-go:hover { background: var(--red-deep); }
+
+.search-go-arrow {
+  display: inline-block;
+  transition: transform 0.15s ease;
+}
+
+.search-go:hover .search-go-arrow { transform: translateX(3px); }
+
+
+/* ============================================================
+   QUICK-TRY CHIPS
+   ============================================================ */
+
+.chips-row {
+  margin-top: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chips-label {
+  font-family: var(--font-code);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-right: 4px;
+}
+
+.chip {
+  padding: 7px 13px;
+  border-radius: 999px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-2);
+  transition: all 0.15s ease;
+  cursor: pointer;
+}
+
+.chip:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+  background: var(--yellow-soft);
+}
 
 
 /* ============================================================
    VERB CARDS
-   (styles will be added here in the next step)
+   (styles will be added here in a later step)
    ============================================================ */
 
 
@@ -237,6 +490,9 @@ button { font-family: inherit; cursor: pointer; border: 0; background: none; col
    RESPONSIVE
    ============================================================ */
 @media (max-width: 768px) {
-  .nav-header { padding: 14px 18px; }
-  .nav-links  { display: none; }
+  .nav-header  { padding: 14px 18px; }
+  .nav-links   { display: none; }
+  .hero        { padding: 56px 18px 40px; align-items: flex-start; }
+  .hero-title  { margin-bottom: 18px; }
+  .hero-sub    { font-size: 16px; }
 }
